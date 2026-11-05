@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0c1117" />
+    <meta name="description" content="工程图纸建模与自纠错 Agent：从二维工程图到可验证的参数化三维模型" />
+    <title>工程图纸建模与自纠错 Agent</title>
+    <style>
+      html, body { margin: 0; background: #0c1117; color: #e8edf3; }
+      #root { min-height: 100vh; }
+      .boot { display: grid; place-items: center; min-height: 100vh; font: 14px/1.6 "Segoe UI", sans-serif; color: #9daaba; }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "preact": "./node_modules/preact/dist/preact.mjs",
+          "preact/hooks": "./node_modules/preact/hooks/dist/hooks.mjs",
+          "htm": "./node_modules/htm/dist/htm.module.js",
+          "three": "./node_modules/three/build/three.module.js",
+          "three/addons/": "./node_modules/three/examples/jsm/"
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="./src/styles/tokens.css" />
+    <link rel="stylesheet" href="./src/styles/ui.css" />
+  </head>
+  <body>
+    <div id="root"><div class="boot">正在初始化工程智能体工作台…</div></div>
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

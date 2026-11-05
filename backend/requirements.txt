@@ -1,0 +1,32 @@
+# 核心运行时依赖（后端）
+fastapi
+uvicorn
+pydantic
+networkx
+
+# 测试
+pytest
+httpx
+
+# 可选：几何内核（用于导出真实 STEP/STL；Python 3.13 已验证 2.8.0）
+# cadquery==2.8.0
+
+# 图纸解析（推荐；缺失时自动退化为"人工录入"模式）
+pymupdf
+opencv-python
+
+# 可选：生成示意样例图
+# pillow
+
+# ---------------------------------------------------------------------------
+# 华为云服务接入（全部可选：不安装/不配置时自动降级，主闭环不受影响）
+# ---------------------------------------------------------------------------
+# OBS 对象存储：证据包上云 + 预签名下载（二选一即可，官方 SDK 优先）
+# esdk-obs-python
+# boto3                      # S3 兼容兜底
+#
+# CES 云监控：自定义指标上报（不装则仅写本地 JSONL 缓冲，看板仍可用）
+# huaweicloudsdkcore
+# huaweicloudsdkces
+#
+# MaaS / FunctionGraph 走标准库 urllib，无需额外依赖

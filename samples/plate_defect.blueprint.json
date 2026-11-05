@@ -1,0 +1,339 @@
+{
+  "params": [
+    {
+      "id": "plate.L",
+      "value": 120.0,
+      "confidence": 0.95,
+      "status": "observed",
+      "source": "drawing:overall"
+    },
+    {
+      "id": "plate.W",
+      "value": 80.0,
+      "confidence": 0.95,
+      "status": "observed",
+      "source": "drawing:overall"
+    },
+    {
+      "id": "plate.T",
+      "value": 6.0,
+      "confidence": 0.9,
+      "status": "observed",
+      "source": "drawing:side_view"
+    },
+    {
+      "id": "fillet.r",
+      "value": 5.0,
+      "confidence": 0.8,
+      "status": "observed",
+      "source": "drawing:note_r5"
+    },
+    {
+      "id": "hole.d",
+      "value": 6.5,
+      "confidence": 0.92,
+      "status": "observed",
+      "source": "drawing:hole_callout"
+    },
+    {
+      "id": "margin",
+      "value": 15.0,
+      "confidence": 0.88,
+      "status": "observed",
+      "source": "drawing:chain_dim"
+    }
+  ],
+  "derived": [
+    {
+      "id": "hole.x1",
+      "expr": "margin",
+      "deps": [
+        "margin"
+      ],
+      "value": 15.0,
+      "source": "rule:x1=margin"
+    },
+    {
+      "id": "hole.y1",
+      "expr": "margin",
+      "deps": [
+        "margin"
+      ],
+      "value": 15.0,
+      "source": "rule:y1=margin"
+    },
+    {
+      "id": "hole.x2",
+      "expr": "plate.L - margin",
+      "deps": [
+        "plate.L",
+        "margin"
+      ],
+      "value": 105.0,
+      "source": "rule:x2=L-margin"
+    },
+    {
+      "id": "hole.y2",
+      "expr": "margin",
+      "deps": [
+        "margin"
+      ],
+      "value": 15.0,
+      "source": "rule:y2=margin"
+    },
+    {
+      "id": "hole.x3",
+      "expr": "margin",
+      "deps": [
+        "margin"
+      ],
+      "value": 15.0,
+      "source": "rule:x3=margin"
+    },
+    {
+      "id": "hole.y3",
+      "expr": "plate.W - margin",
+      "deps": [
+        "plate.W",
+        "margin"
+      ],
+      "value": 65.0,
+      "source": "rule:y3=W-margin"
+    },
+    {
+      "id": "hole.x4",
+      "expr": "plate.L - margin",
+      "deps": [
+        "plate.L",
+        "margin"
+      ],
+      "value": 105.0,
+      "source": "rule:x4=L-margin"
+    },
+    {
+      "id": "hole.y4",
+      "expr": "plate.W - margin",
+      "deps": [
+        "plate.W",
+        "margin"
+      ],
+      "value": 65.0,
+      "source": "rule:y4=W-margin"
+    }
+  ],
+  "features": [
+    {
+      "id": "plate_body",
+      "kind": "extrude",
+      "params": [
+        "plate.L",
+        "plate.W",
+        "plate.T"
+      ]
+    },
+    {
+      "id": "hole_h1",
+      "kind": "hole",
+      "params": [
+        "hole.x1",
+        "hole.y1",
+        "hole.d"
+      ],
+      "depends_on": [
+        "plate_body"
+      ]
+    },
+    {
+      "id": "hole_h2",
+      "kind": "hole",
+      "params": [
+        "hole.x2",
+        "hole.y2",
+        "hole.d"
+      ],
+      "depends_on": [
+        "plate_body"
+      ]
+    },
+    {
+      "id": "hole_h3",
+      "kind": "hole",
+      "params": [
+        "hole.x3",
+        "hole.y3",
+        "hole.d"
+      ],
+      "depends_on": [
+        "plate_body"
+      ]
+    },
+    {
+      "id": "hole_h4",
+      "kind": "hole",
+      "params": [
+        "hole.x4",
+        "hole.y4",
+        "hole.d"
+      ],
+      "depends_on": [
+        "plate_body"
+      ]
+    },
+    {
+      "id": "hole_pattern",
+      "kind": "hole_pattern",
+      "params": [
+        "hole.d"
+      ],
+      "depends_on": [
+        "hole_h1",
+        "hole_h2",
+        "hole_h3",
+        "hole_h4"
+      ]
+    },
+    {
+      "id": "fillet_01",
+      "kind": "fillet",
+      "params": [
+        "fillet.r"
+      ],
+      "depends_on": [
+        "plate_body"
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "id": "c_L_pos",
+      "kind": "geom_positive",
+      "params": [
+        "plate.L"
+      ]
+    },
+    {
+      "id": "c_W_pos",
+      "kind": "geom_positive",
+      "params": [
+        "plate.W"
+      ]
+    },
+    {
+      "id": "c_T_pos",
+      "kind": "geom_positive",
+      "params": [
+        "plate.T"
+      ]
+    },
+    {
+      "id": "c_fillet_max",
+      "kind": "max_value",
+      "params": [
+        "fillet.r"
+      ],
+      "target": 10.0,
+      "severity": "medium"
+    },
+    {
+      "id": "c_diam_eq",
+      "kind": "equality",
+      "params": [
+        "hole.d"
+      ],
+      "target": 6.5,
+      "tolerance": 0.01,
+      "severity": "medium"
+    },
+    {
+      "id": "c_h1_inside",
+      "kind": "hole_inside",
+      "params": [
+        "hole.x1",
+        "hole.y1",
+        "plate.L",
+        "plate.W"
+      ],
+      "target": 12.0,
+      "severity": "high"
+    },
+    {
+      "id": "c_h2_inside",
+      "kind": "hole_inside",
+      "params": [
+        "hole.x2",
+        "hole.y2",
+        "plate.L",
+        "plate.W"
+      ],
+      "target": 12.0,
+      "severity": "high"
+    },
+    {
+      "id": "c_h3_inside",
+      "kind": "hole_inside",
+      "params": [
+        "hole.x3",
+        "hole.y3",
+        "plate.L",
+        "plate.W"
+      ],
+      "target": 12.0,
+      "severity": "high"
+    },
+    {
+      "id": "c_h4_inside",
+      "kind": "hole_inside",
+      "params": [
+        "hole.x4",
+        "hole.y4",
+        "plate.L",
+        "plate.W"
+      ],
+      "target": 12.0,
+      "severity": "high"
+    },
+    {
+      "id": "c_sp_h1h2",
+      "kind": "spacing_min",
+      "params": [
+        "hole.x1",
+        "hole.y1",
+        "hole.x2",
+        "hole.y2"
+      ],
+      "target": 20.0
+    },
+    {
+      "id": "c_sp_h1h3",
+      "kind": "spacing_min",
+      "params": [
+        "hole.x1",
+        "hole.y1",
+        "hole.x3",
+        "hole.y3"
+      ],
+      "target": 20.0
+    },
+    {
+      "id": "c_sp_h2h4",
+      "kind": "spacing_min",
+      "params": [
+        "hole.x2",
+        "hole.y2",
+        "hole.x4",
+        "hole.y4"
+      ],
+      "target": 20.0
+    }
+  ],
+  "overrides": [
+    {
+      "id": "hole.x4",
+      "value": 115.0,
+      "confidence": 0.6,
+      "status": "observed",
+      "source": "drawing:dim_115",
+      "note": "与'边距=15'尺寸链不一致"
+    }
+  ]
+}

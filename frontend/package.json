@@ -1,0 +1,20 @@
+{
+  "name": "cad-agent-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "零构建前端：Preact + htm + three（浏览器原生 ESM + importmap）",
+  "scripts": {
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "check:components": "node scripts/smoke-components.mjs",
+    "check:syntax": "node scripts/check-syntax.mjs"
+  },
+  "dependencies": {
+    "htm": "^3.1.1",
+    "preact": "^11.1.0",
+    "three": "^0.160.1"
+  },
+  "devDependencies": {
+    "jsdom": "^26"
+  }
+}
